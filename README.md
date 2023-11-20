@@ -9,25 +9,25 @@ Vous trouverez dans le dossier Build différentes builds du résultat attendu.
 
 ## 1. Préparer la scène
 Notre scène contiendra plusieurs éléments: 
-- Un plan, qui représentera le sol. Vous pouvez lui donner une scale de 5 sur chaque axe.
-- Un player, représenté par un Cylindre. 
-- Une Caméra, situé derrière le player, de manière à voir le sol et le player
-- Une lumière, qui éclairera notre scène (la lumière de base convenant très bien).
+- Un **plan**, qui représentera le sol. Vous pouvez lui donner une scale de 5 sur chaque axe.
+- Un **player**, représenté par un Cylindre. 
+- Une **Caméra**, situé derrière le player, de manière à voir le sol et le player
+- Une **lumière**, qui éclairera notre scène (la lumière de base convenant très bien).
 
 Voici le genre de résultat attendu:  
-[Vue scène](/ReadmeImgs/SceneView.png) [Vue game](/ReadmeImgs/GameView.png)
+![Vue scène](/ReadmeImgs/SceneView.png) ![Vue game](ReadmeImgs/GameView.png)
 
 ## 2. Lire les inputs
-Comme vu lors du cours, il existe deux manières de lires les inputs dans Unity.  
+Comme vu lors du cours, il existe deux manières de lire les inputs dans Unity.  
 Nous allons utiliser les deux, pour comprendre un peu leurs différences. 
 ### 2.1  Old Input System (InputManager)
 Vous allez devoir créer deux scripts:
-- Un script lisant les inputs depuis les deux axes: Horizontal & Vertical
-- Un script lisant les inputs depuis les flèches du clavier (ou ZQSD) selon vos préférences
+- Un script lisant les inputs depuis les deux **axes**: Horizontal & Vertical
+- Un script lisant les inputs depuis les **flèches du clavier (ou ZQSD)** selon vos préférences
 
 #### 2.1.1 Lecture des axes
-Pour lires les inputs depuis les axes, vous allez devoir utiliser les fonctions Input.GetAxis(axisName).  
-Ces fonctions permettent de récupérer une valeur comprise entre [-1, 1].
+Pour lires les inputs depuis les axes, vous allez devoir utiliser les fonctions **[Input.GetAxis(axisName)](https://docs.unity3d.com/ScriptReference/Input.GetAxis.html)**.  
+Ces fonctions permettent de récupérer une valeur comprise entre **[-1, 1]**.
 
 **Consigne :** Créer un script, nommé **MovePositionByAxis**. Lisez les inputs d'axes, et déplacer l'objet du script en conséquence en fonction d'une vitesse exposée en paramètre du script.  
 Attachez le à un gameobject de Player (un cylindre), et testez. 
@@ -35,16 +35,16 @@ Attachez le à un gameobject de Player (un cylindre), et testez.
 *Hint: Pour déplacer un objet, vous pouvez vous placer dans la méthode **Update** et toucher à transform.position. Pensez à bien utiliser **Time.deltaTime** pour avoir une vitesse constante à toute les frames.*
 
 #### 2.1.2 Lecture des boutons
-Pour lire les inputs de boutons, vous allez devoir utiliser les fonctions **Input.GetKeyDown(key), Input.GetKey(key) ou encore Input.GetKeyUp(key).**  
+Pour lire les inputs de boutons, vous allez devoir utiliser les fonctions **Input.GetKeyDown(key), Input.GetKey(key) ou encore Input.GetKeyUp(key). [(doc)](https://docs.unity3d.com/ScriptReference/Input.GetKeyDown.html)**  
 La valeur retournée est un bool, qui sera vrai si jamais la touche est appuyé au moment donné: 
-- Down => début d'appui
-- Key => Appui constant 
-- Up => Relachement de l'appui
+- **Down** => début d'appui
+- **Key** => Appui constant 
+- **Up** => Relachement de l'appui
 
 **Consigne:** Créer un script, nommé **MovePositionByKeys**. Le script sera identique a **MovePositionByAxis**, mais lira les inputs depuis les flèches (ou ZQSD).
 *Hint: Vous pouvez accéder au keys via l'enum [KeyCode](https://docs.unity3d.com/ScriptReference/KeyCode.html).*
 
-[Inputs](/ReadmeImgs/OldInputSystem.gif)
+![Inputs](/ReadmeImgs/OldInputSystem.gif)
 
 ### 2.2 New Input System (Unity InputSystem)
 Pour cette partie, vous allez devoir déclarer des inputs dans l'asset **PlayerInputs** présente dans le dossier *Assets/Inputs* du projet.  
@@ -60,7 +60,7 @@ Nous allons rajouter de la physique à notre objet, et le déplacer d'une maniè
 Il devra également exposer une variable de type **Rigidbody** pour pouvoir accéder au composant physique de l'objet.  
 A l'Update, vous devrez settez la vélocité de l'objet, pour qu'il puisse se déplacer.
 *Hint: Si votre objet bouge dans tout les sens, vous pouvez peut-être essayer de jouer avec les contraintes du rigidbody, comme ci-dessous.**  
-[RB contraintes](Images/RBConstraints.png)
+![RB contraintes](Images/RBConstraints.png)
 
 ## 4. Sautons ! 
 Maintenant que nous bougeons correctement sur l'axe X et Z, il est temps de bouger en hauteur, sur l'axe Y.  
@@ -70,7 +70,7 @@ Pour celà, nous allons lire un nouvel input, qui sera de type **Button**. Cet i
 
 *Hint: Vous pouvez utiliser la méthode [Rigidbody.AddForce(float power)](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html). N'hésitez pas a mettre une force élevée (> 200).*
 
-[Inputs](/ReadmeImgs/Jump.gif)
+![Inputs](/ReadmeImgs/Jump.gif)
 
 ## 5. Instanciation d'objets
 Pour avoir un peu plus d'interaction, nous allons faire apparaitre un Cube, lorsque le joueur décide d'appuyer sur son clic souris.  
@@ -83,7 +83,7 @@ Ecoutez l'input de la souris, puis instancier un cube au niveau du sol.
 
 *Hint: Input.mousePosition vous donnera la position de la souris a l'écran. GameObject.Instantiate(object) vous permettra d'instancier un objet dans la scène. Attention, c'est mieux si cet objet est un prefab.**
 
-[Inputs](/ReadmeImgs/SpawnCube.gif)
+![Inputs](/ReadmeImgs/SpawnCube.gif)
 
 ## 6. Les collisions
 Jusqu'ici, les seules collisions présentes dans notre scène étaient les collisions entre notre player et le sol.  
@@ -95,7 +95,7 @@ Nous allons créer un script, nommé **DestroyCubeOnCollide**, qui détruira tou
 Vous pouvez utiliser les **tags**, et flagger tout objet cube avec le tag *cube*.  
 Pour détruire un objet, vous pouvez appeler la fonction **Destroy()**.
 
-[Inputs](/ReadmeImgs/DestroyCubes.gif)
+![Inputs](/ReadmeImgs/DestroyCubes.gif)
 
 ### 6.2 Les triggers
 Les triggers sont des boites de collisions, que tout élément physique peut traverser.  
@@ -106,7 +106,7 @@ Pour celà, vous pouvez créer un objet vide dans la scène, et lui assigner un 
 **Consigne:** Créer un script **DestroyAllCubesOnTrigger**, qui détruira tout les cubes lorsque le player rentre dans le trigger. 
 *Hint: Il existe différentes fonctions permettant de récupérer les objets dans la scène. N'hésitez pas a fouiller la [documentation](https://docs.unity3d.com/ScriptReference/GameObject.html).*
 
-[Inputs](/ReadmeImgs/DestroyAllCubes.gif)
+![Inputs](/ReadmeImgs/DestroyAllCubes.gif)
 
 ## 7. La caméra
 Maintenant que notre joueur peut avoir différentes incidences sur le jeu, nous voulons que la caméra puisse nous permettre d'aller où nous voulons.  
@@ -118,7 +118,7 @@ Nous allons d'abord créer un script nommé **CameraFollow**. Ce script devra ef
 Ce script devra récupérer une référence vers le player lors de son **Start**.  
 La caméra devra se tenir à une distance que nous aurons spécifié dans le script (sous forme de Vector3). 
 
-[Inputs](/ReadmeImgs/CameraFollow.gif)
+![Inputs](/ReadmeImgs/CameraFollow.gif)
 
 ### 7.2 Cinemachine
 [Cinemachine](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.3/manual/index.html) est un package embarquant beaucoup d'outils pour améliorer notre Caméra ingame.  
@@ -126,9 +126,9 @@ Pour plus de simplicité, nous allons utiliser ce package pour pouvoir avoir une
 
 Dans votre scène, créez un objet **VirtualCamera**. Cette caméra sera la caméra par défaut maintenant utilisé dans notre scène.  
 Naviguez parmi les différents réglages pour essayer de créer une caméra suivant le joueur.
-[Cinemachine VCam](CinemachineVCamSettings.png)
+![Cinemachine VCam](CinemachineVCamSettings.png)
 
-[Inputs](/ReadmeImgs/Cinemachine.gif)
+![Inputs](/ReadmeImgs/Cinemachine.gif)
 
 ## 8. Changeons nos inputs pour s'adapter au format mobile
 
@@ -139,7 +139,7 @@ Prenez le **FixedJoystick**, et placer le dans un **Canvas** au sein de votre sc
 Ensuite, il faut adapter notre script de déplacement pour se déplacer avec le joystick plutôt qu'avec les inputs claviers.  
 Pour celà, nous devons accéder a la variable **Direction** du joystick. Le reste du comportement de déplacement reste le même.
 
-[Inputs](/ReadmeImgs/Joystick.gif)
+![Inputs](/ReadmeImgs/Joystick.gif)
 
 ### 8.2 Le click souris
 Maintenant que nous avons notre jostick, nous avons une problématique supplémentaire: comment pouvoir à la fois écouter les inputs sur le joystick, mais également les inputs d'une touche d'écran pour poser un cube ?
@@ -186,7 +186,7 @@ Nous créerons un script nommé **Enemy**, et nous voulons que chaque ennemi se 
 Lorsqu'un ennemi collide avec le player, nous voulons que le jeu se recharge.  
 Pour celà, jetez un oeil au [scène management d'Unity](https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.html). 
 
-[Inputs](/ReadmeImgs/Joystick.gif)
+![Inputs](/ReadmeImgs/Joystick.gif)
 
 ## 9. Faisons apparaitre nos ennemis
 Maintenant que nos ennemis sont fonctionnels, nous voulons que ces derniers apparaissent de manière aléatoire sur notre sol.  
@@ -198,7 +198,7 @@ Notre script devra faire apparaitre des ennemis en boucle sur la carte, dans une
 
 *Hint: Vous pouvez utiliser les coroutines.**
 
-[Inputs](/ReadmeImgs/MoveJoystick.gif)
+![Inputs](/ReadmeImgs/MoveJoystick.gif)
 
 ## 10. Tuons nos ennemis
 Maintenant qu'une horde d'ennemis se dirige vers nous, il nous faut la possibilité de nous défendre.  
@@ -209,7 +209,7 @@ A chaque fois qu'un cube rentre dans notre trigger, nous allons détruire le cub
 Pour celà, créer un script nommé **PlayerHit**, et effectuer le traitement nécéssaire a l'intérieur.
 Ultimement, nous voulons que cet objet se détruise après peu de temps (un temps défini par vous). 
 
-[Inputs](/ReadmeImgs/Attack.gif)
+![Inputs](/ReadmeImgs/Attack.gif)
 
 ## Pour aller plus loin... 
 
