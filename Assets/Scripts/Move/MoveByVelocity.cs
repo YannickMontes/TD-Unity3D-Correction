@@ -20,8 +20,11 @@ public class MoveByVelocity : MonoBehaviour
 
         if(lookAtInputsDirection)
         {
-            Vector3 inputDirection = new Vector3(readMovementInput.CurrentMovementInput.x, 0.0f, readMovementInput.CurrentMovementInput.y);
-            transform.LookAt(transform.position + inputDirection, Vector3.up);
+            Vector3 inputDirection = new Vector3(movementInput.x, 0.0f, movementInput.y);
+            if(inputDirection !=  Vector3.zero)
+            {
+                transform.LookAt(transform.position + inputDirection, Vector3.up);
+            }
         }
     }
 }

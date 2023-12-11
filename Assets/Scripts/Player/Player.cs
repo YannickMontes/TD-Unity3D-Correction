@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public float spawnOffset = 1.0f;
     public GameObject hitFX = null;
     public LayerMask groundLayer;
+    public Rigidbody moveBody = null;
+    public GroundCheck groundCheck = null;
+    public Animator animator = null;
 
     public int NbEnemiesKilled { get; set; }
     public int CurrentLife { get; private set; }
@@ -53,7 +56,10 @@ public class Player : MonoBehaviour
         }
         Debug.Log(finger.screenPosition);
         Vector2 touchPos = finger.screenPosition;
-        if (!UIManager.Instance.IsTouchOnJoystick(touchPos))
+        if (!UIManager.Instance.IsTouchOnJoystick(touchPos) 
+            && touchPos.x >= 0 && touchPos.y >= 0
+            && touchPos.x < Screen.width
+            && touchPos.y < Screen.height)
         {
             SpawnHitFX(touchPos);
         }
@@ -70,6 +76,15 @@ public class Player : MonoBehaviour
         {
             Vector3 spawnPos = new Vector3(hitInfo.point.x, hitInfo.point.y + spawnOffset, hitInfo.point.z);
             GameObject.Instantiate(hitFX, spawnPos, Quaternion.identity);
+        }
+    }
+
+    private void Update()
+    {
+        if(animator != null)
+        {
+            animator.SetFloat("Speed", moveBody.velocity.magnitude);
+            animator.SetBool("IsGrounded", groundCheck.IsGrounded);
         }
     }
 }

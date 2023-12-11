@@ -4,6 +4,7 @@ public class FollowPlayer : MonoBehaviour
 {
     public float followSpeed = 1.0f;
     public Rigidbody moveBody = null;
+    public Animator animator = null;
 
     private GameObject player = null;
 
@@ -20,5 +21,11 @@ public class FollowPlayer : MonoBehaviour
         Vector3 sameHeightPlayerPos = player.transform.position;
         sameHeightPlayerPos.y = transform.position.y;
         transform.LookAt(sameHeightPlayerPos);
+
+        if(animator != null)
+        {
+            animator.SetBool("IsGrounded", true);
+            animator.SetFloat("Speed", moveBody.velocity.magnitude);
+        }
     }
 }

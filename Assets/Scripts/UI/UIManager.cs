@@ -1,20 +1,11 @@
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     public Joystick joystick = null;
     public KillCounter killCounter = null;
 
-    public static UIManager Instance { get { return instance; } }
-
-    private static UIManager instance = null;
-
     private Player player = null;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {

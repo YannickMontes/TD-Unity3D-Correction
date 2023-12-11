@@ -4,9 +4,9 @@ public class Enemy : MonoBehaviour
 {
     public int baseDamage = 1;
 
-    public void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Player player = other.GetComponentInParent<Player>();
+        Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player != null)
         {
             player.DealDamage(baseDamage);
